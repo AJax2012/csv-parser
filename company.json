@@ -1,0 +1,11 @@
+{
+"data": [
+{
+"UserId": "Guid",
+"FirstName": "ExpectedFirst",
+"LastName": "ExpectedLast",
+"Version": 4,
+"InsuranceCompany": "company"
+}
+]
+}

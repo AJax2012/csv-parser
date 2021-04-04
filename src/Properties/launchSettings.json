@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GardnerCsvParser": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\var\\proj\\Availity\\CsvParser\\testCsv.csv ;"
+    }
+  }
+}
