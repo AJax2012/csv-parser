@@ -14,11 +14,6 @@ namespace GardnerCsvParser.Services
             return File.Exists(filePath);
         }
 
-        public bool DirectoryExists(string path)
-        {
-            return Directory.Exists(path);
-        }
-
         public async Task<string> GetContents(string filePath)
         {
             var records = string.Empty;
