@@ -70,21 +70,40 @@ namespace GardnerCsvParserTests.ServicesTests
         }
 
         [Test]
-        public void GetInputFilePath_ReturnsInput_WhenNotNullOrEmtpy()
+        public void GetInputFilePath_ReturnsInput_WhenNotNullOrEmtpyAndFileExists()
         {
             // Arrange
             var filePath = fixture.Create<string>();
+            _fileServiceMock.Setup(s => s.FileExists(It.IsAny<string>())).Returns(true);
 
             // Act
             var response = _sut.GetInputFilePath(filePath);
 
-            //
+            // Assert
             Assert.AreEqual(filePath, response);
             _userFeedbackServiceMock.Verify(s => s.GetInputFileLocation(), Times.Never);
         }
 
         [Test]
-        public void GetInputFilePath_ReturnsUserInput_WhenNullOrEmtpy()
+        public void GetInputFilePath_ReturnsUserInput_WhenFileNotExists()
+        {
+            // Arrange
+            var filePath = fixture.Create<string>();
+            var userInput = fixture.Create<string>();
+            _fileServiceMock.Setup(s => s.FileExists(It.IsAny<string>())).Returns(false);
+            _userFeedbackServiceMock.Setup(s => s.GetInputFileLocation()).Returns(userInput);
+
+            // Act
+            var response = _sut.GetInputFilePath(filePath);
+
+            // Assert
+            Assert.AreEqual(userInput, response);
+            _fileServiceMock.Verify(s => s.FileExists(It.Is<string>(y => y == filePath)), Times.Once);
+            _userFeedbackServiceMock.Verify(s => s.GetInputFileLocation(), Times.Once);
+        }
+
+        [Test]
+        public void GetInputFilePath_ReturnsUserInput_WhenNullOrEmtpyAndFileExists()
         {
             // Arrange
             var userInput = fixture.Create<string>();

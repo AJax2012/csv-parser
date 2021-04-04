@@ -43,7 +43,7 @@ namespace GardnerCsvParser.Services
 
         public string GetInputFilePath(string filepath)
         {
-            if (!string.IsNullOrWhiteSpace(filepath))
+            if (!string.IsNullOrWhiteSpace(filepath) && _fileService.FileExists(filepath))
             {
                 return filepath;
             }
